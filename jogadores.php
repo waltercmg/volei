@@ -35,7 +35,7 @@ if($result){
   ?>
   </select></td>
   
-  <td><input class="botaoJogadores" type="submit" disabled="true" value="atualizar"></td>
+  <td><!--<input class="botaoJogadores" type="submit" value="atualizar">--></td>
   </form>
   </tr>
   <?php
