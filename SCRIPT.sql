@@ -1,0 +1,105 @@
+
+
+CREATE TABLE JOGADOR (
+    ID_JOGADOR SERIAL PRIMARY KEY,
+    NOME VARCHAR(40),
+    ABREVIATURA VARCHAR(4),
+    TIPO VARCHAR(1),
+    CONVIDANTE INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    NOTA REAL
+);
+
+CREATE TABLE TORNEIO (
+    ID_TORNEIO SERIAL PRIMARY KEY,
+    DATA DATE,
+    NOME VARCHAR(40)
+);
+
+CREATE TABLE LISTA_PRESENCA(
+    ID_TORNEIO INTEGER REFERENCES TORNEIO (ID_TORNEIO),
+    ID_JOGADOR INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    ID_JOG_REVEZ INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    HORA_CHEGADA TIME,
+    ATIVO BOOLEAN,
+    BENEFICIOS INTEGER DEFAULT 0,
+    CONSTRAINT UNICO UNIQUE(ID_TORNEIO, ID_JOGADOR)
+);
+
+CREATE TABLE TIME (
+    ID_TIME SERIAL PRIMARY KEY,
+    ID_JOGADOR1 INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    ID_JOGADOR2 INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    ID_JOGADOR3 INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    ID_JOGADOR4 INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    ID_JOGADOR5 INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    ID_JOGADOR6 INTEGER REFERENCES JOGADOR (ID_JOGADOR)
+);
+
+CREATE TABLE PARTIDA (
+    ID_PARTIDA SERIAL PRIMARY KEY,
+    HORA_INICIO TIME,
+    ID_TORNEIO INTEGER REFERENCES TORNEIO (ID_TORNEIO),
+    ID_TIME_A  INTEGER REFERENCES TIME (ID_TIME),
+    ID_TIME_B  INTEGER REFERENCES TIME (ID_TIME),
+    VITORIOSO VARCHAR(1)
+);
+
+CREATE TABLE ATUAL (
+    ID_TORNEIO INTEGER REFERENCES TORNEIO (ID_TORNEIO),
+    ID_PARTIDA INTEGER REFERENCES PARTIDA(ID_PARTIDA),
+    ID_JOGADOR INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    ID_JOG_REVEZ INTEGER REFERENCES JOGADOR (ID_JOGADOR),
+    TIME VARCHAR(1),
+    VENCEU BOOLEAN
+);
+
+
+
+(select id_torneio, jogador.id_jogador, lista_presenca.id_jog_revez, tipo, abreviatura, convidante from 
+lista_presenca, jogador where lista_presenca.id_jogador=jogador.id_jogador and lista_presenca.ativo=true and 
+jogador.id_jogador not in (select id_jogador from atual) and jogador.id_jogador not in (select id_jog_revez from atual) order by beneficios, hora_chegada)
+
+
+DELETE FROM ATUAL;
+DELETE FROM PARTIDA;
+DELETE FROM TIME;
+DELETE FROM LISTA_PRESENCA;
+DELETE FROM TORNEIO;
+
+
+DELETE FROM JOGADOR;
+
+
+DROP TABLE ATUAL;
+DROP TABLE PARTIDA;
+DROP TABLE TIME;
+DROP TABLE LISTA_PRESENCA;
+DROP TABLE TORNEIO;
+DROP TABLE JOGADOR CASCADE;
+
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('ALICE','ALIC','M',48.9);
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('ALLENDE','ALLE','M',45.6); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('ANA','ANA','M',39.8); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('BIA','BIA','M',36.3); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('CARLOS','CARL','M',45.6); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('CAROL','CARO','M',45.1); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('DOMINICI','DOM','M',49); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('GISELE','GI','M',41.6); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('GUSTAVO','GUS','M',50.8); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('IGOR','IGOR','M',53.9); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('IVAN','IVAN','M',53.7); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('JAMESSON','JAM','M',55.5); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('JULIANA','JU','M',46.4); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('LIVIA','LIV','M',39.5); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('LUANNA','LUA','M',32.6); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('LUCIO','LUC','M',48.6); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('MARCELLO','MARC','M',55); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('PAULA','PAUL','M',33.6); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('POLIANA','POLI','M',40.1);
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('RODRIGO','ROD','M',53.4); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('RUITA','RUI','M',55.9); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('SUEDY','SUED','M',38.7); 
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('TARCIANA','TARC','M',43.2);
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('TOINHO','TOIN','M',54.6);
+INSERT INTO JOGADOR (nome, abreviatura, tipo, nota) VALUES ('WALTER','WALT','M',51.1); 
+

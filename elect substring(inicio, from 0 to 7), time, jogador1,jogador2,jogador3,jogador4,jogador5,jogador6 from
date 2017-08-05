@@ -1,0 +1,10 @@
+     inicio      | time | joga1 | joga2 | joga3 | joga4 | joga5 | joga6 
+-----------------+------+-------+-------+-------+-------+-------+-------
+ 15:19:21.252249 | A    | HEL   | GI    | JU    | DOM   | IGOR  | JAM
+ 15:19:21.252249 | B    | LUA   | LIV   | CARL  | WALT  | IVAN  | CELO
+ 16:48:09.007533 | A    | CELO  | WALT  | JU    | CARO  | LIV   | BIA
+ 16:48:09.007533 | B    | JAM   | IGOR  | CARL  | GI    | HEL   | LUA
+ 17:12:58.607517 | A    | JAM   | IGOR  | DOM   | CARO  | LIV   | LUA
+ 17:12:58.607517 | B    | CELO  | WALT  | CARL  | GI    | HEL   | BIA
+(6 rows)
+

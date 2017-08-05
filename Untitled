@@ -1,0 +1,5 @@
+<input type="hidden" name="codigo" value="<?=$row['codigo']?>">
+  <td><input type="text" disabled="true"  name="nome" value="<?=$row['nome']?>"></td>
+  <td><input type="text" disabled="true" name="nota" value="<?=$row['nota']?>"></td>
+  <td><input type="text" disabled="true"  name="tipo" value="<?=$row['tipo']?>"></td>
+  <td><input type="checkbox" value="Chegou"></td>

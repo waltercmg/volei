@@ -1,0 +1,151 @@
+@media only screen and (max-width: 1000px) {
+    body {
+        background-color: lightblue;
+        font-size: 160%;
+    }
+    .td {
+        background-color: lighblue;
+        font-size: 400%;
+    }
+
+    
+   
+}
+
+.botao1 {
+    width: 250px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+
+.botao2 {
+    width: 250px;
+    background-color: #ff8080;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+.botao3 {
+    width: 250px;
+    background-color: gray;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+.botaoConvidado {
+    width: 250px;
+    background-color: yellow;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+.botaoExcluir {
+    background-color: gray;
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+
+.time_a {
+    width: 250px;
+    background-color: purple;
+    border: none;
+    color: white;
+    padding: 15px 70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+.time_b {
+    width: 250px;
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 15px 70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+.botaoMenu {
+    background-color: gray;
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 60px;
+    border-radius: 12px;
+}
+
+.jogadores {
+    background-color: gray;
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    border-radius: 12px;
+}
+
+.botaoJogadores {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    border-radius: 12px;
+}
+
+.dados {
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 6px;
+}
+
+#el08 {
+	width:4em;
+	height:4em;
+}
