@@ -17,6 +17,7 @@ include "util.php";
 <?php
 $limite = getQtdeJogadoresPorTime()*2;
 $id_torneio = getTorneioDia();
+//echo "TORNEIOOO=".$id_torneio;
 $lista = getCandidatosPartida($id_torneio);
 //echo "<br>LISTA: ". count($lista);
 

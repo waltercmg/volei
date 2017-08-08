@@ -2,9 +2,9 @@
 
 include "classes.php";
 
-//$conn = pg_connect("dbname=postgres");
+$conn = pg_connect("dbname=postgres");
 //sudo service postgresql start
-$conn = pg_connect("host=ec2-107-20-186-238.compute-1.amazonaws.com dbname=dep3sfi55ndpdb user=orwbscrzwbuznv password=ba6d32ffbc1821ce1e9261ed41a79622e54632a746e7b4ce23ab6b213e8d574b");
+//$conn = pg_connect("host=ec2-107-20-186-238.compute-1.amazonaws.com dbname=dep3sfi55ndpdb user=orwbscrzwbuznv password=ba6d32ffbc1821ce1e9261ed41a79622e54632a746e7b4ce23ab6b213e8d574b");
 //psql -h ec2-107-20-186-238.compute-1.amazonaws.com -p 5432 -U orwbscrzwbuznv -W ba6d32ffbc1821ce1e9261ed41a79622e54632a746e7b4ce23ab6b213e8d574b -d dep3sfi55ndpdb
 $mensalistas = array();
 
@@ -19,6 +19,7 @@ function getTorneioDia(){
             break;
         }
     }
+    //echo "TORNEIODIA=".$retorno;
     return $retorno;
 }
 
@@ -467,12 +468,105 @@ function atualizarRevezamentos($id_torneio){
     }else{
         $convidadosNaoPrecisamRevezar = $qtdeConPresentes;
     }
-    
     /*echo "<br>PRE: ".$qtdeMenPresentes;
     echo "<br>CON: ".$qtdeConPresentes;
     echo "<br>DIF: ".$dif;
     echo "<br>MAX: ".$qtdeMaxJogadoresSemRevezar;
     echo "<br>CONR: ".$convidadosNaoPrecisamRevezar;*/
+    
+    $consulta = "(select id_torneio, jogador.id_jogador, tipo, ".
+        "abreviatura, convidante from ".
+        "lista_presenca, jogador where ". 
+        "lista_presenca.id_jogador=jogador.id_jogador and ". 
+        "lista_presenca.ativo=true and ". 
+        "lista_presenca.id_torneio=".$id_torneio." and ".
+        "jogador.id_jogador not in ". 
+        "(select id_jogador from atual) and ".
+        "jogador.id_jogador not in ". 
+        "(select id_jog_revez from atual where id_jog_revez is not null) ".
+        "order by beneficios, hora_chegada) ".
+        "union all ".
+        "(select lista_presenca.id_torneio, jogador.id_jogador, tipo, ".
+        "abreviatura, convidante from ". 
+        "atual, lista_presenca, jogador where ". 
+        "(lista_presenca.id_jogador=atual.id_jogador or lista_presenca.id_jogador=atual.id_jog_revez) and ". 
+        "lista_presenca.id_jogador=jogador.id_jogador and ".
+        "lista_presenca.id_torneio=".$id_torneio." and ".
+        "lista_presenca.ativo=true ". 
+        "order by venceu, beneficios, hora_chegada);";
+    //echo "<br>ATU_REVEZ: " .$consulta;
+    $result = pg_query($conn, $consulta);
+    apagarRevezamentos();
+    
+    $arrayRevez = array();
+    $arrayCandidatos = array();
+    if($result){
+        while ($row = pg_fetch_array($result)) {
+            if($row['tipo']=="C"){
+                //echo "<br>P0";
+                $arrayRevez[$row['convidante']]=$row['id_jogador'];
+            }else{
+                $id_convidado=isMensalistaComConvidado($id_torneio, $row['id_jogador']);
+                if($id_convidado>0){
+                    $arrayRevez[$row['id_jogador']]=$id_convidado;
+                }
+            }
+            array_push($arrayCandidatos, $row['id_jogador']);
+        }
+    }
+    $contCon=0;
+    for($x=0;$x<count($arrayCandidatos);$x++){
+        $id_convidante=0;
+        $id_convidado=0;
+        //echo "<br>P1";
+        if($arrayRevez[$arrayCandidatos[$x]]!=null){
+            $id_convidante=$arrayCandidatos[$x];
+            $id_convidado=$arrayRevez[$arrayCandidatos[$x]];
+        }elseif(in_array($arrayCandidatos[$x], $arrayRevez)){
+            $id_convidante=array_search($arrayCandidatos[$x],$arrayRevez);
+            $id_convidado=$arrayCandidatos[$x];            
+        }
+        if($id_convidado>0){
+            $contCon++;
+            //echo "<br>P2: ".$contCon;
+            if($contCon>$convidadosNaoPrecisamRevezar){
+                //echo "<br>P3: ".$convidadosNaoPrecisamRevezar;
+                incluiRevezamento($id_torneio,$id_convidante, $id_convidado);
+                incluiRevezamento($id_torneio,$id_convidado, $id_convidante);
+            }else{
+                $arrayRevez[$id_convidante]=null;
+            }
+        }  
+    }
+}
+
+
+
+function atualizarRevezamentos_OLD_20170807($id_torneio){
+    global $conn;
+    $retorno = array();
+    
+    $arrayQtPresentes = getQtdePresentes();
+    $qtdeMenPresentes = $arrayQtPresentes[0];
+    $qtdeConPresentes = $arrayQtPresentes[1];
+    $qtdeMaxJogadoresSemRevezar = getMaxJogadoresSemRevezar();
+    $qtdePresentes = $qtdeMenPresentes + $qtdeConPresentes;
+    
+    if($qtdePresentes > $qtdeMaxJogadoresSemRevezar){
+        if($qtdeMenPresentes >= $qtdeMaxJogadoresSemRevezar){
+            $convidadosNaoPrecisamRevezar = 0;
+        }else{
+            $convidadosNaoPrecisamRevezar = $qtdeMaxJogadoresSemRevezar-$qtdeMenPresentes;
+        }
+    }else{
+        $convidadosNaoPrecisamRevezar = $qtdeConPresentes;
+    }
+    
+    echo "<br>PRE: ".$qtdeMenPresentes;
+    echo "<br>CON: ".$qtdeConPresentes;
+    echo "<br>DIF: ".$dif;
+    echo "<br>MAX: ".$qtdeMaxJogadoresSemRevezar;
+    echo "<br>CONR: ".$convidadosNaoPrecisamRevezar;
      
     $consulta = "(select id_torneio, jogador.id_jogador, tipo, ".
         "abreviatura, convidante from ".
@@ -503,27 +597,35 @@ function atualizarRevezamentos($id_torneio){
 
     if($result){
         while ($row = pg_fetch_array($result)) {
+            echo "<br>nome=".$row['abreviatura'];
             if($row['tipo'] == "C"){
+                echo "<br>PASSO1";
                 $contCon++;
-                //echo "<br>PASSO1";
                 if($contCon > $convidadosNaoPrecisamRevezar){
-                    //echo "<br>PASSO2";
+                    echo "<br>PASSO2";
                     if($arrayRevez[$row['convidante']]==null){
                         incluiRevezamento($row['id_torneio'],$row['convidante'], $row['id_jogador']);
                         incluiRevezamento($row['id_torneio'],$row['id_jogador'], $row['convidante']);
                         $arrayRevez[$row['convidante']]=$row['id_jogador'];
+                    }else{
+                        $contCon--;
                     }
                 }
+                
             }else{
                 $id_jog_convidado=isMensalistaComConvidado($row['id_torneio'],$row['id_jogador']);
-                //echo "<br><br>convidado: ". $id_jog_convidado."<br>";
+                echo "<br>convidadso: ". $id_jog_convidado."<br>";
                 if($id_jog_convidado>0){
                     $contCon++;
+                    echo "<br>contCon=".$contCon;
                     if($contCon > $convidadosNaoPrecisamRevezar){
+                        echo "PASSO 4";
                         if($arrayRevez[$row['id_jogador']]==null){
                             incluiRevezamento($row['id_torneio'],$row['id_jogador'], $id_jog_convidado);
                             incluiRevezamento($row['id_torneio'],$id_jog_convidado, $row['id_jogador']);
                             $arrayRevez[$row['id_jogador']]=$id_jog_convidado;
+                        }else{
+                            $contCon--;
                         }
                     }
                 }
@@ -531,6 +633,7 @@ function atualizarRevezamentos($id_torneio){
         }
     }
 }
+
 
 function getCandidatosPartida($id_torneio){
     global $conn;
@@ -553,7 +656,7 @@ function getCandidatosPartida($id_torneio){
         "(select lista_presenca.id_torneio, jogador.id_jogador, lista_presenca.id_jog_revez, tipo, ".
         "abreviatura, convidante from ". 
         "atual, lista_presenca, jogador where ". 
-        "lista_presenca.id_jogador=atual.id_jogador and ". 
+        "(lista_presenca.id_jogador=atual.id_jogador or lista_presenca.id_jogador=atual.id_jog_revez) and ". 
         "lista_presenca.id_jogador=jogador.id_jogador and ".
         "lista_presenca.id_torneio=".$id_torneio." and ".
         "lista_presenca.ativo=true ". 
