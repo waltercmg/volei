@@ -121,6 +121,18 @@
     border-radius: 12px;
 }
 
+.linha_tit {
+    background-color: purple;
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    border-radius: 12px;
+}
+
 .botaoJogadores {
     background-color: green;
     border: none;

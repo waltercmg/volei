@@ -441,6 +441,7 @@ function zerar(){
 
 function apagarRevezamentos(){
     global $conn;
+    setTimeZone();
     $query = "update lista_presenca set id_jog_revez = null where ".
              "id_torneio = (select max(id_torneio) from torneio where data=current_date);";
     $result = pg_query($conn, $query);
@@ -517,7 +518,7 @@ function atualizarRevezamentos($id_torneio){
                 $id_jog_convidado=isMensalistaComConvidado($row['id_torneio'],$row['id_jogador']);
                 //echo "<br><br>convidado: ". $id_jog_convidado."<br>";
                 if($id_jog_convidado>0){
-                    //$contCon++;
+                    $contCon++;
                     if($contCon > $convidadosNaoPrecisamRevezar){
                         if($arrayRevez[$row['id_jogador']]==null){
                             incluiRevezamento($row['id_torneio'],$row['id_jogador'], $id_jog_convidado);

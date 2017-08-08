@@ -6,6 +6,8 @@ include "util.php";
 </head>
 
 <table border=0 align=center width="70%">
+ <tr><td class="linha_tit">NOME</td><td class="linha_tit">ABREV.</td>
+ <td class="linha_tit">NOTA</td><td class="linha_tit">TIPO</td><td class="linha_tit">CONVIDANTE</td></tr>
 <?php
 carregarArrayMensalistas();
 
@@ -16,12 +18,13 @@ if($result){
  ?>
   <tr>
   <form name="jog_<?=$row['codigo']?>" action="atualizar_jogador.php" method="post">
-  <td><input type="text" class="jogadores" name="codigo" disabled=true size=1 value="<?=$row['id_jogador']?>"></td>
+  <input type="hidden" class="jogadores" name="codigo" size=1 value="<?=$row['id_jogador']?>">
   <td><input type="text" class="jogadores"  name="nome" size=3 value="<?=$row['nome']?>"></td>
   <td><input type="text"  class="jogadores" name="abreviatura" size=2 value="<?=$row['abreviatura']?>"></td>
   <td><input type="text" class="jogadores"  name="nota" size=1 value="<?=$row['nota']?>"></td>
   <td><input type="text"  class="jogadores" name="tipo" size=1 value="<?=$row['tipo']?>"></td>
   <td><select name="convidante" class="jogadores" >
+  <option value="0">-----</option>
   <?php
   for($x=0;$x<count($mensalistas);$x++){
    if($row['convidante']==$mensalistas[$x]->id_jogador)
@@ -35,7 +38,7 @@ if($result){
   ?>
   </select></td>
   
-  <td><!--<input class="botaoJogadores" type="submit" value="atualizar">--></td>
+  <td><input class="botaoJogadores" type="submit" value="atualizar"></td>
   </form>
   </tr>
   <?php
@@ -46,7 +49,6 @@ if($result){
 <tr>
   <form name="jog_novo" action="atualizar_jogador.php" method="post">
   <input type="hidden" name="codigo"  value="novo">
-  <td></td>
   <td><input type="text" class="jogadores" size=3 name="nome"></td>
   <td><input type="text" class="jogadores" size=2  name="abreviatura"></td>
   <td><input type="text" class="jogadores" size=1 name="nota"></td>
@@ -63,5 +65,8 @@ if($result){
   <td><input type="submit" class="botaoJogadores" value="INCLUIR"></td>
   </form>
   </tr>
+  <tr><td colspan=5 align=center><br><br>
+   <input type="button" class="botaoMenu" onclick="location.href = 'index.php'" value="MENU">
+  </td></tr>
  </table>
-<input type="button" class="botaoMenu" onclick="location.href = 'index.php'" value="MENU">
+ 

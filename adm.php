@@ -19,7 +19,7 @@ echo "<br><br>ATUAL<br><br>";
 $query = "select * from atual, jogador, lista_presenca where atual.id_jogador=".
         "lista_presenca.id_jogador and lista_presenca.id_jogador=jogador.id_jogador and ".
         "lista_presenca.id_torneio = atual.id_torneio and atual.id_torneio= ".$id_torneio." order by hora_chegada";
-imprimeResultado($query);
+imprimeResultado("ATUAL",$query);
 
 echo "<br><br>ESTAO NO BANCO<br><br>";
 $query = "select * from jogador, lista_presenca where ".
@@ -29,7 +29,7 @@ $query = "select * from jogador, lista_presenca where ".
         "jogador.id_jogador not in ".
         "(select id_jog_revez from atual where id_jog_revez is not null) and ".
         "id_torneio=".$id_torneio." order by hora_chegada;";
-imprimeResultado($query);
+imprimeResultado("ESTAO NO BANCO",$query);
 
 echo "<br><br>PROXIMOS CANDIDATOS<br><br>";
 $query ="(select id_torneio, jogador.id_jogador, lista_presenca.id_jog_revez, tipo, ".
@@ -50,28 +50,28 @@ $query ="(select id_torneio, jogador.id_jogador, lista_presenca.id_jog_revez, ti
         "lista_presenca.id_jogador=jogador.id_jogador and ".
         "lista_presenca.ativo=true ". 
         "order by venceu, beneficios, hora_chegada);";
-imprimeResultado($query);
+//imprimeResultado("PROXIMOS CANDIDATOS",$query);
 
 
 echo "<br><br>PARTIDA<br><br>";
 $query = "select * from partida;";
-imprimeResultado($query);
+imprimeResultado("PARTIDAS",$query);
 
 echo "<br><br>TIME<br><br>";
 $query = "select * from time;";
-imprimeResultado($query);
+imprimeResultado("TIMES",$query);
 
 echo "<br><br>LISTA_PRESENCA<br><br>";
 $query = "select * from jogador, lista_presenca where jogador.id_jogador=lista_presenca.id_jogador order by hora_chegada;";
-imprimeResultado($query);
+imprimeResultado("LISTA_PRESENCA",$query);
 
 echo "<br><br>JOGADOR<br><br>";
 $query = "select * from jogador;";
-imprimeResultado($query);
+imprimeResultado("JOGADOR",$query);
 
 echo "<br><br>TORNEIO<br><br>";
 $query = "select * from torneio;";
-imprimeResultado($query);
+imprimeResultado("TORNEIO",$query);
 
 
 
