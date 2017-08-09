@@ -86,18 +86,19 @@ function atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente){
     }
 }
 
-function getQtdePresentes(){
+function getQtdePresentes($id_torneio){
     global $conn;
     $retorno = array();
     $qtdeMensalistas = 0;
     $qtdeConvidados = 0;
+    setTimeZone();
     $consulta = "SELECT tipo, count(tipo) as quant FROM ".
-    "lista_presenca, torneio, jogador ".
-    "where lista_presenca.id_torneio=torneio.id_torneio and ".
+    "lista_presenca, jogador ".
+    "where lista_presenca.id_torneio=".$id_torneio." and ".
     "lista_presenca.id_jogador=jogador.id_jogador and ".
-    "lista_presenca.ativo=true and torneio.data=current_date ".
+    "lista_presenca.ativo=true ".
     "group by tipo;";
-    //echo $consulta;
+    //echo "<br>QTDE_PRRSENTES:". $consulta;
     $result = pg_query($conn, $consulta);
     if($result){
         while ($row = pg_fetch_array($result)) {
@@ -162,7 +163,7 @@ function iniciarPartida($id_torneio, $time_a,$time_b){
 function atualizarBeneficios($id_torneio, $jogadores){
     global $conn;
     
-    $arrayQtPresentes = getQtdePresentes();
+    $arrayQtPresentes = getQtdePresentes($id_torneio);
     $qtdeMenPresentes = $arrayQtPresentes[0];
     if($qtdeMenPresentes > 2*getQtdeJogadoresPorTime()){
         $clausulaIn="";
@@ -202,7 +203,7 @@ function atualizarBeneficios($id_torneio, $jogadores){
 function atualizarBeneficios_OLD($id_torneio, $jogadores){
     global $conn;
     
-    $arrayQtPresentes = getQtdePresentes();
+    $arrayQtPresentes = getQtdePresentes($id_torneio);
     $qtdeMenPresentes = $arrayQtPresentes[0];
     if($qtdeMenPresentes > 2*getQtdeJogadoresPorTime()){
         $clausulaIn="";
@@ -440,11 +441,11 @@ function zerar(){
 
 }
 
-function apagarRevezamentos(){
+function apagarRevezamentos($id_torneio){
     global $conn;
     setTimeZone();
     $query = "update lista_presenca set id_jog_revez = null where ".
-             "id_torneio = (select max(id_torneio) from torneio where data=current_date);";
+             "id_torneio = ".$id_torneio.";";
     $result = pg_query($conn, $query);
     
 }
@@ -453,7 +454,7 @@ function atualizarRevezamentos($id_torneio){
     global $conn;
     $retorno = array();
     
-    $arrayQtPresentes = getQtdePresentes();
+    $arrayQtPresentes = getQtdePresentes($id_torneio);
     $qtdeMenPresentes = $arrayQtPresentes[0];
     $qtdeConPresentes = $arrayQtPresentes[1];
     $qtdeMaxJogadoresSemRevezar = getMaxJogadoresSemRevezar();
@@ -496,7 +497,7 @@ function atualizarRevezamentos($id_torneio){
         "order by venceu, beneficios, hora_chegada);";
     //echo "<br>ATU_REVEZ: " .$consulta;
     $result = pg_query($conn, $consulta);
-    apagarRevezamentos();
+    apagarRevezamentos($id_torneio);
     
     $arrayRevez = array();
     $arrayCandidatos = array();
@@ -546,7 +547,7 @@ function atualizarRevezamentos_OLD_20170807($id_torneio){
     global $conn;
     $retorno = array();
     
-    $arrayQtPresentes = getQtdePresentes();
+    $arrayQtPresentes = getQtdePresentes($id_torneio);
     $qtdeMenPresentes = $arrayQtPresentes[0];
     $qtdeConPresentes = $arrayQtPresentes[1];
     $qtdeMaxJogadoresSemRevezar = getMaxJogadoresSemRevezar();
@@ -588,7 +589,7 @@ function atualizarRevezamentos_OLD_20170807($id_torneio){
         "lista_presenca.id_torneio=".$id_torneio." and ".
         "lista_presenca.ativo=true ". 
         "order by venceu, beneficios, hora_chegada);";
-    //echo $consulta;
+    echo $consulta;
     $result = pg_query($conn, $consulta);
     $contCon = 0;
     $arrayRevez = array();
@@ -683,7 +684,7 @@ function getCandidatosPartida_OLD_20170728($id_torneio){
     global $conn;
     $retorno = array();
     
-    $arrayQtPresentes = getQtdePresentes();
+    $arrayQtPresentes = getQtdePresentes($id_torneio);
     $qtdeMenPresentes = $arrayQtPresentes[0];
     $qtdeConPresentes = $arrayQtPresentes[1];
     $qtdeMaxJogadoresSemRevezar = getMaxJogadoresSemRevezar();
