@@ -113,6 +113,8 @@ $query = "select abreviatura, tipo, hora_chegada from jogador, ".
 "and lista_presenca.id_torneio=".$id_torneio." order by hora_chegada;";
 imprimeResultado("ORDEM DE CHEGADA",$query);
 
+getEstatisticas();
+
 ?>
 </td></tr>
 <tr>
