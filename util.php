@@ -1095,7 +1095,15 @@ function imprimeEstatisticas($torneios){
         foreach(array_keys($torneios[$dt_torneio]) as $jogadores){
             $vitorias = $torneios[$dt_torneio][$jogadores][0]+0;
             $derrotas = $torneios[$dt_torneio][$jogadores][1]+0;
-            $aprov = $vitorias/($vitorias + $derrotas)*100;
+            $aprov = number_format($vitorias/($vitorias + $derrotas)*100,2)."%";
+            if($aprov==100){
+                $aprov = "<b><font color=blue>".$aprov."</font></b>";
+                $jogadores = "<b><font color=blue>".$jogadores."</font></b>";
+            }elseif
+            ($aprov==0){
+                $aprov = "<b><font color=red>".$aprov."</font></b>";
+                 $jogadores = "<b><font color=red>".$jogadores."</font></b>";
+            }
             echo "<tr><td>".$jogadores."</td>"."<td>".$vitorias."</td>".
                  "<td>".$derrotas."</td>"."<td>".$aprov."</td></tr>";
 
