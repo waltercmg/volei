@@ -990,5 +990,119 @@ function imprimeResultado($titulo, $query){
     }
     echo "</tr></table>";
 }
+
+function getEstatisticas(){
+    global $conn;
+    
+    $query = " select data,id_partida,to_char(inicio, 'HH24:MI:SS') as hora , ".
+        "    time, vitorioso as venceu, jogador1,jogador2,jogador3, ".
+        "    jogador4,jogador5,jogador6 from ".
+        "    ( ".
+        "    (select id_partida,data,".
+        "    hora_inicio as inicio, 'A' as time, vitorioso,  ".
+        "    joga1.abreviatura as jogador1,  ".
+        "    joga2.abreviatura as jogador2,  ".
+        "    joga3.abreviatura as jogador3,  ".
+        "    joga4.abreviatura as jogador4,  ".
+        "    joga5.abreviatura as jogador5,  ".
+        "    joga6.abreviatura as jogador6 ".
+        "    from partida ".
+        "    inner join time on ".
+        "    partida.id_time_a = time.id_time  ".
+        "    inner join jogador joga1 on ".
+        "    time.id_jogador1=joga1.id_jogador ".
+        "    inner join jogador joga2 on ".
+        "    time.id_jogador2=joga2.id_jogador ".
+        "    inner join jogador joga3 on ".
+        "    time.id_jogador3=joga3.id_jogador ".
+        "    inner join jogador joga4 on ".
+        "    time.id_jogador4=joga4.id_jogador ".
+        "    inner join jogador joga5 on ".
+        "    time.id_jogador5=joga5.id_jogador ".
+        "    inner join jogador joga6 on ".
+        "    time.id_jogador6=joga6.id_jogador".
+        "    inner join torneio on".
+        "    partida.id_torneio=torneio.id_torneio) ".
+        "    union  ".
+        "    (select id_partida, data, hora_inicio as inicio, 'B' as time, vitorioso,  ".
+        "    joga1.abreviatura as jogador1,  ".
+        "    joga2.abreviatura as jogador2,  ".
+        "    joga3.abreviatura as jogador3,  ".
+        "    joga4.abreviatura as jogador4, ".
+        "    joga5.abreviatura as jogador5,  ".
+        "    joga6.abreviatura as jogador6 ".
+        "    from partida ".
+        "    inner join time on ".
+        "    partida.id_time_b = time.id_time  ".
+        "    inner join jogador joga1 on ".
+        "    time.id_jogador1=joga1.id_jogador ".
+        "    inner join jogador joga2 on ".
+        "    time.id_jogador2=joga2.id_jogador ".
+        "    inner join jogador joga3 on ".
+        "    time.id_jogador3=joga3.id_jogador ".
+        "    inner join jogador joga4 on ".
+        "    time.id_jogador4=joga4.id_jogador ".
+        "    inner join jogador joga5 on ".
+        "    time.id_jogador5=joga5.id_jogador ".
+        "    inner join jogador joga6 on ".
+        "    time.id_jogador6=joga6.id_jogador".
+        "    inner join torneio on".
+        "    partida.id_torneio=torneio.id_torneio".
+        "    )) as time ".
+        "    order by data desc,inicio desc,time;";
+
+    $result = pg_query($conn, $query);
+    $torneios = array();
+    $id_torneio_atual = 0;
+    if($result){
+        while ($row = pg_fetch_array($result)) {
+            $dt_torneio = $row['data'];
+            if($dt_torneio_atual != $dt_torneio){
+                $jogadores = array();
+                $dt_torneio_atual = $dt_torneio;
+            }
+            //echo "<BR>TIME:".$row['time'];
+            //echo "<BR>VITORIOSO:".$row['venceu'];
+            if($row['time']==$row['venceu']){
+                $jogadores[$row['jogador1']][0]+=1;
+                $jogadores[$row['jogador2']][0]+=1;
+                $jogadores[$row['jogador3']][0]+=1;
+                $jogadores[$row['jogador4']][0]+=1;
+                $jogadores[$row['jogador5']][0]+=1;
+                $jogadores[$row['jogador6']][0]+=1;
+            }else{
+                $jogadores[$row['jogador1']][1]+=1;
+                $jogadores[$row['jogador2']][1]+=1;
+                $jogadores[$row['jogador3']][1]+=1;
+                $jogadores[$row['jogador4']][1]+=1;
+                $jogadores[$row['jogador5']][1]+=1;
+                $jogadores[$row['jogador6']][1]+=1;
+            }
+            $torneios[$dt_torneio] = $jogadores;
+        }
+    }
+    //echo "<BR><BR><BR>ARRAY:<BR>";
+    //print_r(array_values($torneios));
+    //echo "<BR>--------------------------<BR><BR><BR>";
+    imprimeEstatisticas($torneios);
+}
+
+function imprimeEstatisticas($torneios){
+    echo "<br><br><table class=\"dados\" border=1>";
+    foreach(array_keys($torneios) as $dt_torneio){
+        echo "<tr><td colspan=4>TORNEIO ".$dt_torneio."</td></tr>";
+        echo "<tr><td>JOGADOR</td><td>VITORIAS</td><td>DERROTAS</td><td>APROVEITAMENTO</td></tr>";
+        foreach(array_keys($torneios[$dt_torneio]) as $jogadores){
+            $vitorias = $torneios[$dt_torneio][$jogadores][0]+0;
+            $derrotas = $torneios[$dt_torneio][$jogadores][1]+0;
+            $aprov = $vitorias/($vitorias + $derrotas)*100;
+            echo "<tr><td>".$jogadores."</td>"."<td>".$vitorias."</td>".
+                 "<td>".$derrotas."</td>"."<td>".$aprov."</td></tr>";
+
+        }
+    }
+    echo "</table>";
+}
+
 ?>
 
