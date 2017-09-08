@@ -62,7 +62,7 @@ foreach(array_keys($arrayJogadores) as $jogador){
     else
         $der_acumulado = $derrotas ;
         
-    if($vit != "")
+    if($vit_acumulado != "")
         $vit_acumulado .= "," . $vitorias;
     else
         $vit_acumulado = $vitorias ;
