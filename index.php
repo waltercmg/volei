@@ -51,7 +51,7 @@ if(isPartidaEmAndamento()){?>
 <tr>
 <td align=center>
 <br><br><br><br><br><br>
-<input type="button" class="botaoMenu" onclick="location.href = 'zerar.php'" value="ZERAR">
+<!--<input type="button" class="botaoMenu" onclick="location.href = 'zerar.php'" value="ZERAR">-->
 </td>
 </tr>
 </table>
