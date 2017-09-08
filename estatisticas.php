@@ -79,7 +79,6 @@ foreach(array_keys($arrayJogadores) as $jogador){
 
 <head>
 <script src="Chart.js"></script>
-<link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
 
 
