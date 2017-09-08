@@ -11,7 +11,7 @@ foreach(array_keys($torneios) as $dt_torneio){
     foreach(array_keys($torneios[$dt_torneio]) as $jogadores){
         $vitorias = $torneios[$dt_torneio][$jogadores][0]+0;
         $derrotas = $torneios[$dt_torneio][$jogadores][1]+0;
-        $aprov = number_format($vitorias/($vitorias + $derrotas)*100,2)."%";
+        $aprov = number_format($vitorias/($vitorias + $derrotas),2);
         
         if($der != "")
             $der .= "," . $derrotas;
@@ -51,6 +51,7 @@ $label_acumulado = "";
 foreach(array_keys($arrayJogadores) as $jogador){
     $vitorias = $arrayJogadores[$jogador][0];
     $derrotas = $arrayJogadores[$jogador][1];
+    $aprov = number_format($vitorias/($vitorias + $derrotas),2);
     
     if($label_acumulado!= "")
         $label_acumulado .= ",'" . $jogador . "'";
@@ -66,6 +67,11 @@ foreach(array_keys($arrayJogadores) as $jogador){
         $vit_acumulado .= "," . $vitorias;
     else
         $vit_acumulado = $vitorias ;
+        
+    if($apr_acumulado != "")
+        $apr_acumulado .= "," . $aprov;
+    else
+        $apr_acumulado = $aprov ;
 
 }
 
@@ -73,6 +79,7 @@ foreach(array_keys($arrayJogadores) as $jogador){
 
 <head>
 <script src="Chart.js"></script>
+<link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
 
 
@@ -98,6 +105,11 @@ var myChart = new Chart(ctx, {
             data: [<?=$der?>],
             backgroundColor: 'rgba(255, 99, 132, 0.8)',
             borderWidth: 1
+        }, {
+            label: 'Aproveitamento',
+            data: [<?=$apr?>],
+            borderWidth: 1,
+            type: 'line'
         }
         ]
     },
@@ -134,13 +146,19 @@ var myChart = new Chart(ctx, {
             data: [<?=$der_acumulado?>],
             backgroundColor: 'rgba(255, 99, 132, 0.8)',
             borderWidth: 1
+        },
+        {
+            label: 'Aproveitamento',
+            data: [<?=$apr_acumulado?>],
+            borderWidth: 1,
+            type: 'line'
         }
         ]
     },
     options: {
         title: {
             display: true,
-            text: 'Acumulado',
+            text: 'Acumulado (<?=count($torneios)?> torneios)',
             fontSize: 20
         }
     }
