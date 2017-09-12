@@ -9,12 +9,6 @@ include "util.php";
 <table align=center width="90%" valign=middle>
 <tr>
 <td align=center>
-<input type="button" class="botaoMenu" onclick="location.href = 'jogadores.php'" value="JOGADORES">
-<br><br>
-</td>
-</tr>
-<tr>
-<td align=center>
 <input type="button" class="botaoMenu" onclick="location.href = 'checkin.php'" value="CHECK IN">
 <br><br>
 </td>
@@ -45,13 +39,20 @@ if(isPartidaEmAndamento()){?>
 <tr>
 <td align=center>
 <input type="button" class="botaoMenu" onclick="location.href = 'dados.php'" value="DADOS DO DIA">
-<br><br>
+<BR><BR>
 </td>
 </tr>
 <tr>
 <td align=center>
-<br><br><br><br><br><br>
-<!--<input type="button" class="botaoMenu" onclick="location.href = 'zerar.php'" value="ZERAR">-->
+<input type="button" class="botaoMenu" onclick="location.href = 'estatisticas.php'" value="ESTATISTICAS">
+<br><br><br>
 </td>
 </tr>
+<tr>
+<td align=center>
+<input type="button" class="botaoMenu" onclick="location.href = 'jogadores.php'" value="JOGADORES">
+<br><br>
+</td>
+</tr>
+
 </table>
