@@ -1113,7 +1113,7 @@ function imprimeEstatisticas($torneios){
 }
 
 
-function getEstatisticasDados(){
+function getEstatisticasDadosObj(){
     global $conn;
     
     $query = " select data,id_partida,to_char(inicio, 'HH24:MI:SS') as hora , ".
@@ -1176,32 +1176,42 @@ function getEstatisticasDados(){
     $result = pg_query($conn, $query);
     $torneios = array();
     $id_torneio_atual = 0;
+    $dt_torneio_atual = "";
     if($result){
         while ($row = pg_fetch_array($result)) {
             $dt_torneio = $row['data'];
             if($dt_torneio_atual != $dt_torneio){
+                if($dt_torneio_atual != ""){
+                    $torneio->jogadores = $jogadores;
+                    array_push($torneios, $torneio);
+                }
+                $torneio = new torneio();
+                $torneio->data = $dt_torneio;
+                $torneio->qtPartidas = 0;
                 $jogadores = array();
                 $dt_torneio_atual = $dt_torneio;
             }
-            //echo "<BR>TIME:".$row['time'];
-            //echo "<BR>VITORIOSO:".$row['venceu'];
-            if($row['time']==$row['venceu']){
-                $jogadores[$row['jogador1']][0]+=1;
-                $jogadores[$row['jogador2']][0]+=1;
-                $jogadores[$row['jogador3']][0]+=1;
-                $jogadores[$row['jogador4']][0]+=1;
-                $jogadores[$row['jogador5']][0]+=1;
-                $jogadores[$row['jogador6']][0]+=1;
-            }else{
-                $jogadores[$row['jogador1']][1]+=1;
-                $jogadores[$row['jogador2']][1]+=1;
-                $jogadores[$row['jogador3']][1]+=1;
-                $jogadores[$row['jogador4']][1]+=1;
-                $jogadores[$row['jogador5']][1]+=1;
-                $jogadores[$row['jogador6']][1]+=1;
+            $torneio->qtPartidas+=0.5;
+            if($row['venceu']!=""){
+                if($row['time']==$row['venceu']){
+                    $jogadores[$row['jogador1']][0]+=1;
+                    $jogadores[$row['jogador2']][0]+=1;
+                    $jogadores[$row['jogador3']][0]+=1;
+                    $jogadores[$row['jogador4']][0]+=1;
+                    $jogadores[$row['jogador5']][0]+=1;
+                    $jogadores[$row['jogador6']][0]+=1;
+                }else{
+                    $jogadores[$row['jogador1']][1]+=1;
+                    $jogadores[$row['jogador2']][1]+=1;
+                    $jogadores[$row['jogador3']][1]+=1;
+                    $jogadores[$row['jogador4']][1]+=1;
+                    $jogadores[$row['jogador5']][1]+=1;
+                    $jogadores[$row['jogador6']][1]+=1;
+                }
             }
-            $torneios[$dt_torneio] = $jogadores;
         }
+        $torneio->jogadores = $jogadores;
+        array_push($torneios, $torneio);
     }
     //echo "<BR><BR><BR>ARRAY:<BR>";
     //print_r(array_values($torneios));
