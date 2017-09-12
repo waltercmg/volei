@@ -6,8 +6,13 @@ include "util.php";
 </head>
 
 <table border=0 align=center width="70%">
- <tr><td class="linha_tit">NOME</td><td class="linha_tit">ABREV.</td>
- <td class="linha_tit">NOTA</td><td class="linha_tit">TIPO</td><td class="linha_tit">CONVIDANTE</td></tr>
+ <tr>
+  <td class="linha_tit">NOME</td>
+  <td class="linha_tit">ABREV.</td>
+  <td class="linha_tit">NOTA</td>
+  <td class="linha_tit">TIPO</td>
+  <td class="linha_tit">CONVIDANTE</td>
+ </tr>
 <?php
 carregarArrayMensalistas();
 
@@ -54,10 +59,11 @@ if($result){
   <td><input type="text" class="jogadores" size=1 name="nota"></td>
   <td><input type="text" class="jogadores" size=1 name="tipo"></td>
   <td><select name="convidante"  class="jogadores" >
+   <option value="0" selected>-----</option>
   <?php
   for($x=0;$x<count($mensalistas);$x++){
    ?>
-   <option value="<?=$mensalistas[$x]->id_jogador?>" <?=$selected?>><?=$mensalistas[$x]->nome?></option>
+   <option value="<?=$mensalistas[$x]->id_jogador?>"><?=$mensalistas[$x]->nome?></option>
   <?php 
   }
   ?>
