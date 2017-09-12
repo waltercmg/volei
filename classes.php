@@ -9,8 +9,15 @@ class jogador
     public $tipo;
     public $id_jog_revez;
     public $presente;
+    public $qtVitorias;
+    public $qtDerrotas;
 }
 
-
-
+class torneio
+{
+    public $id_torneio;
+    public $data;
+    public $qtPartidas;
+    public $jogadores;
+}
 ?>
