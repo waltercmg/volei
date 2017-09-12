@@ -27,7 +27,7 @@ imprimeResultado("ESTAO NO BANCO",$query);
 echo "</td></tr><tr><td align=center>";
 
 $query = "(select id_torneio, jogador.id_jogador, lista_presenca.id_jog_revez, tipo, ".
-        "abreviatura, convidante from ".
+        "abreviatura, convidante, beneficios from ".
         "lista_presenca, jogador where ". 
         "lista_presenca.id_jogador=jogador.id_jogador and ". 
         "lista_presenca.ativo=true and ". 
@@ -39,7 +39,7 @@ $query = "(select id_torneio, jogador.id_jogador, lista_presenca.id_jog_revez, t
         "order by beneficios, hora_chegada) ".
         "union all ".
         "(select lista_presenca.id_torneio, jogador.id_jogador, lista_presenca.id_jog_revez, tipo, ".
-        "abreviatura, convidante from ". 
+        "abreviatura, convidante, beneficios from ". 
         "atual, lista_presenca, jogador where ". 
         "(lista_presenca.id_jogador=atual.id_jogador or lista_presenca.id_jogador=atual.id_jog_revez) and ". 
         "lista_presenca.id_jogador=jogador.id_jogador and ".
