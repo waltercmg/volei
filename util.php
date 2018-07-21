@@ -1219,5 +1219,27 @@ function getEstatisticasDadosObj(){
     return $torneios;
 }
 
+function getJogadoresObj(){
+    global $conn;
+    $retorno = null;
+    $jogadores = array();
+    $consulta = "select * from jogador order by abreviatura;";  
+    $result = pg_query($conn, $consulta);
+    if($result){
+        while ($row = pg_fetch_array($result)) {
+            $jog = new jogador();
+            $jog->id_jogador = $row['id_jogador'];
+            $jog->abreviatura = $row['abreviatura'];
+            $jog->tipo = $row['tipo'];
+            $jog->nome = $row['nome'];
+            array_push($jogadores, $jog);
+        }
+        $retorno = $jogadores;
+    }
+    return $retorno;
+}
+
+
+
 ?>
 

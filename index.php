@@ -3,6 +3,7 @@ include "util.php";
 ?>
 
 <head>
+<meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
 
@@ -38,14 +39,14 @@ if(isPartidaEmAndamento()){?>
 </tr>
 <tr>
 <td align=center>
-<input type="button" class="botaoMenu" onclick="location.href = 'dados.php'" value="DADOS DO DIA">
-<BR><BR>
+<input type="button" class="botaoMenu" onclick="location.href = 'estatisticas.php'" value="ESTATISTICAS">
+<br><br><br>
 </td>
 </tr>
 <tr>
 <td align=center>
-<input type="button" class="botaoMenu" onclick="location.href = 'estatisticas.php'" value="ESTATISTICAS">
-<br><br><br>
+<input type="button" class="botaoMenu" onclick="location.href = 'presenca.php'" value="PRESENÇA">
+<br><br>
 </td>
 </tr>
 <tr>
