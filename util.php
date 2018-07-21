@@ -1223,7 +1223,7 @@ function getJogadoresObj(){
     global $conn;
     $retorno = null;
     $jogadores = array();
-    $consulta = "select * from jogador order by abreviatura;";  
+    $consulta = "select * from jogador order by abreviatura where tipo='M';";  
     $result = pg_query($conn, $consulta);
     if($result){
         while ($row = pg_fetch_array($result)) {
