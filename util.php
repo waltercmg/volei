@@ -4,7 +4,8 @@ include "classes.php";
 
 //$conn = pg_connect("dbname=postgres");
 //sudo service postgresql start
-$conn = pg_connect("host=ec2-107-20-186-238.compute-1.amazonaws.com dbname=dep3sfi55ndpdb user=orwbscrzwbuznv password=ba6d32ffbc1821ce1e9261ed41a79622e54632a746e7b4ce23ab6b213e8d574b");
+//$conn = pg_connect("host=ec2-107-20-186-238.compute-1.amazonaws.com dbname=dep3sfi55ndpdb user=orwbscrzwbuznv password=ba6d32ffbc1821ce1e9261ed41a79622e54632a746e7b4ce23ab6b213e8d574b");
+$conn = pg_connect("host=ec2-3-214-121-14.compute-1.amazonaws.com dbname=ddi9urr0tffnvv user=fkzyeszpvbqplb password=5e0a0bfea6465a72c478432de40802686e4ae04a1aadb9f28ad956798ca8ff3e");
 //psql -h ec2-107-20-186-238.compute-1.amazonaws.com -p 5432 -U orwbscrzwbuznv -W ba6d32ffbc1821ce1e9261ed41a79622e54632a746e7b4ce23ab6b213e8d574b -d dep3sfi55ndpdb
 $mensalistas = array();
 
