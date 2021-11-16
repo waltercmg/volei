@@ -7,6 +7,7 @@ include "util.php";
 <link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
 
+
 <table align=center width="90%" valign=middle>
 <tr>
 <td align=center>
