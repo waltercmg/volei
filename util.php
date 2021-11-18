@@ -59,31 +59,31 @@ function setTimeZone(){
 
 function atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente){
     global $conn;
-    echo "ID TORNEIO: ".$id_torneio;
+    //echo "ID TORNEIO: ".$id_torneio;
     setTimeZone();
     if($id_torneio==0){
-        echo "<br>INSERIR";
+        //echo "<br>INSERIR";
         $result = pg_query( $conn, "INSERT INTO TORNEIO (nome, data) VALUES ('DIA: '|| current_date, current_date) RETURNING id_torneio;");
-        echo "<br>RESULTADO01: ".$result;
+        //echo "<br>RESULTADO01: ".$result;
         $row = pg_fetch_row($result);
         $id_torneio = intval($row[0]);
         apagarAtual();
     }
     
-    echo "<br>ID TORNEIO: ".$id_torneio;
+    //echo "<br>ID TORNEIO: ".$id_torneio;
     $params = array($id_torneio, $id_jogador);
-    echo "<br>PRESENTE:".$presente;
+    //echo "<br>PRESENTE:".$presente;
     if($ativo != ""){
         if($presente){
-            echo "<br>ATUALIZAR ID JOG: ".$id_jogador;
+            //echo "<br>ATUALIZAR ID JOG: ".$id_jogador;
             $params = array($id_torneio, $id_jogador, $ativo);
             $result = pg_query_params( $conn, 'UPDATE LISTA_PRESENCA SET ATIVO=$3 WHERE ID_TORNEIO=$1 AND ID_JOGADOR=$2;', $params);
         }else{
-            echo "<br>INSERIR JOG ".$id_torneio." - ".$id_jogador;
+            //echo "<br>INSERIR JOG ".$id_torneio." - ".$id_jogador;
             $result = pg_query_params( $conn, 'INSERT INTO LISTA_PRESENCA (ID_TORNEIO, ID_JOGADOR, HORA_CHEGADA, ATIVO) VALUES ($1,$2,now(),true);', $params);    
             $row = pg_fetch_row($result);
             $id_torneio = intval($row[0]);
-            echo "<br>RESULTADO INSERT: ".$id_torneio;
+            //echo "<br>RESULTADO INSERT: ".$id_torneio;
         }
     }else{
         $params = array($id_torneio, $id_jogador);
