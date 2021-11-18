@@ -20,7 +20,7 @@ echo "<br>CHECKIN -> ATIVO: " . $ativo;
 if($id_jogador != ""){
     atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente);
 }
-if($id_torneio == ""){
+if($id_torneio == "" or $id_torneio == 0){
     $id_torneio = getTorneioDia();
     echo "<br>CHECKIN -> ID_TORNEIO_N: " . $id_torneio;
 }
