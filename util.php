@@ -62,8 +62,9 @@ function atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente){
     echo "ID TORNEIO: ".$id_torneio;
     setTimeZone();
     if($id_torneio==0){
-        //echo "<br>INSERIR";
+        echo "<br>INSERIR";
         $result = pg_query( $conn, "INSERT INTO TORNEIO (nome, data) VALUES ('DIA: '|| current_date, current_date) RETURNING id_torneio;");
+        echo "<br>RESULTADO01: ".$result;
         $row = pg_fetch_row($result);
         $id_torneio = intval($row[0]);
         apagarAtual();
@@ -80,6 +81,7 @@ function atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente){
         }else{
             echo "<br>INSERIR JOG ".$id_torneio;
             $result = pg_query_params( $conn, 'INSERT INTO LISTA_PRESENCA (ID_TORNEIO, ID_JOGADOR, HORA_CHEGADA, ATIVO) VALUES ($1,$2,now(),true);', $params);    
+            echo "<br>RESULTADO02: ".$result;
         }
     }else{
         $params = array($id_torneio, $id_jogador);
