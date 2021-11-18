@@ -78,7 +78,7 @@ function atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente){
             $params = array($id_torneio, $id_jogador, $ativo);
             $result = pg_query_params( $conn, 'UPDATE LISTA_PRESENCA SET ATIVO=$3 WHERE ID_TORNEIO=$1 AND ID_JOGADOR=$2;', $params);
         }else{
-            //echo "<br>INSERIR JOG ".$id_torneio;
+            echo "<br>INSERIR JOG ".$id_torneio;
             $result = pg_query_params( $conn, 'INSERT INTO LISTA_PRESENCA (ID_TORNEIO, ID_JOGADOR, HORA_CHEGADA, ATIVO) VALUES ($1,$2,now(),true);', $params);    
         }
     }else{
