@@ -10,9 +10,13 @@ include "util.php";
 <?php
 
 $id_torneio = intval($_POST["id_torneio"]);
+echo "CHECKIN -> ID TORNEIO: " . $id_torneio;
 $id_jogador = intval($_POST["id_jogador"]);
+echo "CHECKIN -> ID JOGADOR: " . $id_jogador;
 $presente = $_POST["presente"];
+echo "CHECKIN -> PRESENTE: " . $presente;
 $ativo = $_POST["ativo"];
+echo "CHECKIN -> ATIVO: " . $ativo;
 if($id_jogador != ""){
     atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente);
 }
