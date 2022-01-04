@@ -17,8 +17,7 @@ $arrayJogadores = array();
 
 for($i=0;$i<count($torneios);$i++){
     $torneio = $torneios[$i];
-    $data[$i] = $torneio->data;
-    $label[$i] = "";
+    $data[$i] = $torneio->data;    
     foreach(array_keys($torneio->jogadores) as $jogadores){
         $vitorias = $torneio->jogadores[$jogadores][0]+0;
         $derrotas = $torneio->jogadores[$jogadores][1]+0;
@@ -36,13 +35,13 @@ for($i=0;$i<count($torneios);$i++){
         echo "<br>Label: " . $label[$i];
         echo "<br>Jogadores: " . $jogadores;
         $teste =  "'" . $jogadores ."'";
-        $label[$i] =  "'" . $jogadores ."'";
+        //$label[$i] =  "'" . $jogadores ."'";
         echo "<br>teste: ". $teste;
         echo "<br>label i: ". $label[$i];
         
         if($label[$i] != ""){
             echo "<br>entrou no if";
-            $label[$i] .= ", '" . $jogadores ."'";
+            $label[$i] = $label[$i] . ", '" . $jogadores ."'";
             echo "<br>Label if: " . $label[$i];
         }
         else{
