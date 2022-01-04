@@ -39,12 +39,12 @@ for($i=0;$i<count($torneios);$i++){
         
         if($label[$i] != ""){
             echo "<br>entrou no if";
-            $label[$i] .= ', "' . $jogadores .'"';
+            $label[$i] .= ", '" . $jogadores ."'";
             echo "<br>Label if: " . $label[$i];
         }
         else{
             echo "<br>entrou no else";
-            $label[$i] = "' $jogadores '";
+            $label[$i] = "'". $jogadores ."'";
             echo "<br>Label else: " . $label[$i];
         }
         
