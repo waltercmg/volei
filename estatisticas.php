@@ -34,10 +34,12 @@ for($i=0;$i<count($torneios);$i++){
         
         echo "<br>Label: " . $label[$i];
         echo "<br>Jogadores: " . $jogadores;
+        $teste =  "'" . $jogadores ."'";
+        echo "<br>teste: ". $teste;
         
         if($label[$i] != ""){
             echo "<br>entrou no if";
-            $label[$i] .= ",' $jogadores '";
+            $label[$i] .= ', "' . $jogadores .'"';
             echo "<br>Label if: " . $label[$i];
         }
         else{
