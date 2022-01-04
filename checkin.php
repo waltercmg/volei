@@ -17,7 +17,7 @@ $presente = $_POST["presente"];
 echo "<br>CHECKIN -> PRESENTE: " . $presente;
 $ativo = $_POST["ativo"];
 echo "<br>CHECKIN -> ATIVO: " . $ativo;
-if($id_jogador != ""){
+if($id_jogador != "" and $id_jogador != 0){
     atualizarCheckIn($id_torneio, $id_jogador, $ativo, $presente);
 }
 if($id_torneio == "" or $id_torneio == 0){
