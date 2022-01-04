@@ -1,9 +1,9 @@
 
 <?php
 include "util.php";
-echo "get estatisticas";
+//echo "get estatisticas";
 $torneios = getEstatisticasDadosObj();
-echo "OK get estatisticas";
+//echo "OK get estatisticas";
 $label = "";
 /*echo "<br>DATA 0 :".$torneios[0]->data;
 echo "<br>DATA 1 :".$torneios[1]->data;
