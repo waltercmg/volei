@@ -24,8 +24,8 @@ if($result){
   <tr>
   <form name="jog_<?=$row['codigo']?>" action="atualizar_jogador.php" method="post">
   <input type="hidden" class="jogadores" name="codigo" size=1 value="<?=$row['id_jogador']?>">
-  <td><input type="text" class="jogadores"  name="nome" size=3 value="<?=$row['nome']?>"></td>
-  <td><input type="text"  class="jogadores" name="abreviatura" size=2 value="<?=$row['abreviatura']?>"></td>
+  <td><input type="text" class="jogadores"  name="nome" size=4 value="<?=$row['nome']?>"></td>
+  <td><input type="text"  class="jogadores" name="abreviatura" size=3 value="<?=$row['abreviatura']?>"></td>
   <td><input type="text" class="jogadores"  name="nota" size=3 value="<?=$row['nota']?>"></td>
   <td><input type="text"  class="jogadores" name="tipo" size=1 value="<?=$row['tipo']?>"></td>
   <td><select name="convidante" class="jogadores" >
