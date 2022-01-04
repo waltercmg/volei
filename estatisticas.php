@@ -18,6 +18,7 @@ $arrayJogadores = array();
 for($i=0;$i<count($torneios);$i++){
     $torneio = $torneios[$i];
     $data[$i] = $torneio->data;
+    $label[$i] = "";
     foreach(array_keys($torneio->jogadores) as $jogadores){
         $vitorias = $torneio->jogadores[$jogadores][0]+0;
         $derrotas = $torneio->jogadores[$jogadores][1]+0;
