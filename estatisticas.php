@@ -35,7 +35,9 @@ for($i=0;$i<count($torneios);$i++){
         echo "<br>Label: " . $label[$i];
         echo "<br>Jogadores: " . $jogadores;
         $teste =  "'" . $jogadores ."'";
+        $label[$i] =  "'" . $jogadores ."'";
         echo "<br>teste: ". $teste;
+        echo "<br>label i: ". $label[$i];
         
         if($label[$i] != ""){
             echo "<br>entrou no if";
