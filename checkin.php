@@ -22,7 +22,7 @@ if($id_jogador != "" and $id_jogador != 0){
 }
 if($id_torneio == "" or $id_torneio == 0){
     $id_torneio = getTorneioDia();
-    echo "<br>CHECKIN -> ID_TORNEIO_N: " . $id_torneio;
+    //echo "<br>CHECKIN -> ID_TORNEIO_N: " . $id_torneio;
 }
 ?> 
 
