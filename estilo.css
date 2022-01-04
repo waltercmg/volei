@@ -64,12 +64,12 @@
 .botaoExcluir {
     background-color: gray;
     border: none;
-    color: white;
-    padding: 15px 15px;
+    color: red;
+    padding: 2px 2px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 60px;
+    font-size: 40px;
     border-radius: 12px;
 }
 
