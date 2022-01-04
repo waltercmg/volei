@@ -54,9 +54,9 @@ if($result){
 <tr>
   <form name="jog_novo" action="atualizar_jogador.php" method="post">
   <input type="hidden" name="codigo"  value="novo">
-  <td><input type="text" class="jogadores" size=3 name="nome"></td>
-  <td><input type="text" class="jogadores" size=2  name="abreviatura"></td>
-  <td><input type="text" class="jogadores" size=1 name="nota"></td>
+  <td><input type="text" class="jogadores" size=5 name="nome"></td>
+  <td><input type="text" class="jogadores" size=4  name="abreviatura"></td>
+  <td><input type="text" class="jogadores" size=3 name="nota"></td>
   <td><input type="text" class="jogadores" size=1 name="tipo"></td>
   <td><select name="convidante"  class="jogadores" >
    <option value="0" selected>-----</option>
