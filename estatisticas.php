@@ -32,41 +32,31 @@ for($i=0;$i<count($torneios);$i++){
         else
             $qtPartidasJog[$i] =  ($derrotas + $vitorias);
         
-        echo "<br>Label: " . $label[$i];
-        echo "<br>Jogadores: " . $jogadores;
-        $teste =  "'" . $jogadores ."'";
-        //$label[$i] =  "'" . $jogadores ."'";
-        echo "<br>teste: ". $teste;
-        echo "<br>label i: ". $label[$i];
         
-        if($label[$i] != ""){
-            echo "<br>entrou no if";
-            $label[$i] = $label[$i] . ", '" . $jogadores ."'";
-            echo "<br>Label if: " . $label[$i];
+        if($label[$i] != ""){          
+            $label[$i] = $label[$i] . ", '" . $jogadores ."'";            
         }
-        else{
-            echo "<br>entrou no else";
-            $label[$i] = "'". $jogadores ."'";
-            echo "<br>Label else: " . $label[$i];
+        else{            
+            $label[$i] = "'". $jogadores ."'";            
         }
         
         if($qtPartidasDia[$i] != "")
-            $qtPartidasDia[$i] .= ",'" . $torneio->qtPartidas . "'";
+            $qtPartidasDia[$i] = $qtPartidasDia[$i] . ",'" . $torneio->qtPartidas . "'";
         else
             $qtPartidasDia[$i] = "'" . $torneio->qtPartidas . "'";
         
         if($qtVitoriasJog[$i] != "")
-            $qtVitoriasJog[$i] .= ",'" . $vitorias . "'";
+            $qtVitoriasJog[$i] = $qtVitoriasJog[$i] . ",'" . $vitorias . "'";
         else
             $qtVitoriasJog[$i] = "'" . $vitorias . "'";
         
         if($qtDerrotasJog[$i] != "")
-            $qtDerrotasJog[$i] .= ",'" . $derrotas . "'";
+            $qtDerrotasJog[$i] = $qtDerrotasJog[$i] . ",'" . $derrotas . "'";
         else
             $qtDerrotasJog[$i] = "'" . $derrotas . "'";
             
         if($aprovJog[$i] != "")
-            $aprovJog[$i] .= ",'" . $aprov . "'";
+            $aprovJog[$i] = $aprovJog[$i] . ",'" . $aprov . "'";
         else
             $aprovJog[$i] = "'" . $aprov . "'";    
     }
@@ -78,22 +68,22 @@ foreach(array_keys($arrayJogadores) as $jogador){
     $aprov = number_format($vitorias/($vitorias + $derrotas),2);
     
     if($label_acumulado!= "")
-        $label_acumulado .= ",'" . $jogador . "'";
+        $label_acumulado = $label_acumulado . ",'" . $jogador . "'";
     else
         $label_acumulado = "'" . $jogador . "'";
     
     if($der_acumulado != "")
-        $der_acumulado .= "," .$derrotas;
+        $der_acumulado = $der_acumulado . "," .$derrotas;
     else
         $der_acumulado = $derrotas ;
         
     if($vit_acumulado != "")
-        $vit_acumulado .= "," . $vitorias;
+        $vit_acumulado = $vit_acumulado . "," . $vitorias;
     else
         $vit_acumulado = $vitorias ;
         
     if($apr_acumulado != "")
-        $apr_acumulado .= "," . $aprov;
+        $apr_acumulado = $apr_acumulado . "," . $aprov;
     else
         $apr_acumulado = $aprov ;
 
