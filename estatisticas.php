@@ -28,7 +28,7 @@ for($i=0;$i<count($torneios);$i++){
 
 
         if($qtPartidasJog[$i] != "")
-            $qtPartidasJog[$i] .= "," . ($derrotas + $vitorias);
+            $qtPartidasJog[$i] = $qtPartidasJog[$i] . "," . ($derrotas + $vitorias);
         else
             $qtPartidasJog[$i] =  ($derrotas + $vitorias);
         
