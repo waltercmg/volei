@@ -36,13 +36,11 @@ for($i=0;$i<count($torneios);$i++){
         echo "<br>Label I: " . $label[$i];
         echo "<br>JOGADORES" . $jogadores;*/
         
-        if($label[$i] != ""){          
-            echo "<br>entrou if";
+        if($label[$i] != ""){                      
             $label[$i] = $label[$i] . ", '" . $jogadores ."'";            
         }
-        else{
-            echo "<br>entrou else";
-            $label[0] = "'". $jogadores ."'";            
+        else{            
+            $label[$i] = "'". $jogadores ."'";            
         }
         
         if($qtPartidasDia[$i] != "")
