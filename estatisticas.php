@@ -32,9 +32,9 @@ for($i=0;$i<count($torneios);$i++){
         else
             $qtPartidasJog[$i] =  ($derrotas + $vitorias);
         
-        echo "<br>I: " . $i;
+        /*echo "<br>I: " . $i;
         echo "<br>Label I: " . $label[$i];
-        echo "<br>JOGADORES" . $jogadores;
+        echo "<br>JOGADORES" . $jogadores;*/
         
         if($label[$i] != ""){          
             echo "<br>entrou if";
