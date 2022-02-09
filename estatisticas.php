@@ -32,6 +32,8 @@ for($i=0;$i<count($torneios);$i++){
         else
             $qtPartidasJog[$i] =  ($derrotas + $vitorias);
         
+        echo "<br>I: " . $i;
+        echo "<br>Label I: " . $label[$i];
         
         if($label[$i] != ""){          
             $label[$i] = $label[$i] . ", '" . $jogadores ."'";            
