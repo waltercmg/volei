@@ -34,6 +34,7 @@ for($i=0;$i<count($torneios);$i++){
         
         echo "<br>I: " . $i;
         echo "<br>Label I: " . $label[$i];
+        echo "<br>JOGADORES" . $jogadores;
         
         if($label[$i] != ""){          
             $label[$i] = $label[$i] . ", '" . $jogadores ."'";            
