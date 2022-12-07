@@ -50,6 +50,7 @@ function getHTMLJogador($jogador, $ordem){
                     "onclick=\"javacript:remover(". $jogador->id_jogador .
                     ",'". $jogador->ativo."');\">";
     }
+
     return $retorno;
 }
 
