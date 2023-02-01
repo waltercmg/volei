@@ -5,6 +5,15 @@ include "util.php";
 <head>
 <link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CJTMQ0YWP1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CJTMQ0YWP1');
+</script>
 <?php
 
 $limite = getQtdeJogadoresPorTime()*2;
