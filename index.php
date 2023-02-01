@@ -6,7 +6,15 @@ include "util.php";
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CJTMQ0YWP1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-CJTMQ0YWP1');
+</script>
 
 <table align=center width="90%" valign=middle>
 <tr>
